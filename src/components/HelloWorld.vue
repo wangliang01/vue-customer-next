@@ -1,5 +1,5 @@
 <template>
-  <van-button>按钮</van-button>
+  <van-button type="primary">主要按钮</van-button>
 </template>
 
 <script>
