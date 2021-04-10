@@ -22,6 +22,8 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1",
     "vant": "^3.0.12",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
@@ -39,6 +41,7 @@
     "eslint-plugin-vue": "^7.0.0",
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
+    "postcss-pxtorem": "^6.0.0",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2"
   }

@@ -49,6 +49,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
     ]
   },
 ```
+暂时没生效，先不管了，就这样吧
 3. 引入vant
 ```
 yarn add vant@next
@@ -65,3 +66,44 @@ const app = createApp(App)
 
 app.use(Vant);
 ```
+4. 清除App.vue中的无用代码，及样式
+```vue
+<template>
+  <router-view></router-view>
+</template>
+
+<style lang="scss">
+
+</style>
+```
+5. 引入reset样式
+6. 使用postcss-pxtorem配置rem响应式布局
+在main.js中引入utils/rem.js
+在babal.config.js中配置
+```js
+ plugins: {
+    autoprefixer: {
+      browsers: ['Android >= 4.0', 'iOS >= 8'],
+    },
+    'postcss-pxtorem': {
+      rootValue: 37.5,
+      propList: ['*'],
+    },
+  },
+```
+7. 引入utils工具库
+安装lodash
+```
+yarn add lodash moment
+```
+主要存放request.js等请求函数的封装
+
+8. 引入iconfont
+将iconfont的在线链接 //at.alicdn.com/t/font_2237985_a0kyotqm6at.css 放入浏览器打开，生成代码存放在styles/iconfont.scss文件中
+
+在App.vue中引入iconfont.scss
+
+9. 引入api
+引入api, 用于从后台请求数据
+
+
