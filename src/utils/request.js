@@ -1,14 +1,14 @@
 import axios from 'axios'
-import { toNumber, get as Get } from 'lodash'
+import { toNumber, get as _get } from 'lodash'
 import router from '@/router'
 import { get, remove } from './local'
 import { Toast } from 'vant'
 import store from '@/store'
 import {
-  SUCCESS,
+  // SUCCESS,
   UN_AUTHORIZED,
-  LOGIN_SUCCESS,
-  LOGOUT_SUCCESS,
+  // LOGIN_SUCCESS,
+  // LOGOUT_SUCCESS,
   CREDENTIALS_EXPIRED,
   UNAUTHORIZED_HEADER_IS_EMPTY,
   INVALID_TOKEN,
@@ -16,28 +16,35 @@ import {
   TOKEN_EXPIRED,
   TOKEN_PASS_OUT
 } from './statusCode'
-import { show, hide } from '@/components/loading'
+const show = () => {
+  // 自定义加载图标
+  Toast.loading({
+    message: '加载中...',
+    forbidClick: true,
+    loadingType: 'spinner',
+    duration: 20000
+  })
+}
+const hide = () => {
+  Toast.clear()
+}
 let reqCount = 0
 const instance = axios.create({
   baseURL: process.env.NODE_ENV === 'production' ? '/pron' : 'api',
-  timeout: 5000,
+  timeout: 10000,
   headers: {
     common: {
       'Content-Type': 'application/json',
       tenantId: 1
-      // appId: 'yyx-mall',
-      // appSecret: 'yyx-mall'
     }
   }
 })
 const errorHandler = (error) => {
   hide()
   reqCount = 0
-  const status = toNumber(Get(error, 'response.status'))
-  const msg = Get(error, 'response.data.msg')
-  if (status === 401) {
-    remove('token')
-  }
+  const status = toNumber(_get(error, 'response.status'))
+  const msg = _get(error, 'response.data.msg')
+
   switch (status) {
     case 400:
       error.message = msg || '请求错误'
@@ -73,33 +80,16 @@ const errorHandler = (error) => {
       error.message = msg || 'HTTP版本不受支持'
       break
     default:
+      error.message = '未知异常'
       break
   }
+
   if (error.message) {
-    Toast.fail(error.message)
+    Toast(error.message)
   }
-  return Promise.reject(error)
+  return Promise.reject(error.message)
 }
-const pending = [] // 声明一个数组用于存储每个ajax请求的取消函数和ajax标识
-const CancelToken = axios.CancelToken
-const removePending = config => {
-  for (const p in pending) {
-    if (
-      pending[p].u ===
-      config.url +
-        '&' +
-        config.method +
-        '&' +
-        JSON.stringify(config.data) +
-        '&' +
-        JSON.stringify(config.params)
-    ) {
-      // 当当前请求在数组中存在时执行函数体
-      pending[p].f() // 执行取消操作
-      pending.splice(p, 1) // 把这条记录从数组中移除
-    }
-  }
-}
+
 // 请求拦截器
 instance.interceptors.request.use(
   (config) => {
@@ -107,21 +97,7 @@ instance.interceptors.request.use(
       store.commit('setLoadingStatus', 'NET_ERROR')
       return config
     }
-    removePending(config) // 在一个ajax发送前执行一下取消操作
-    config.cancelToken = new CancelToken(c => {
-      // 这里的ajax标识我是用请求地址&请求方式拼接的字符串，当然你可以选择其他的一些方式
-      pending.push({
-        u:
-          config.url +
-          '&' +
-          config.method +
-          '&' +
-          JSON.stringify(config.data) +
-          '&' +
-          JSON.stringify(config.params),
-        f: c
-      })
-    })
+
     reqCount++
     // 显示loading
     show()
@@ -131,13 +107,7 @@ instance.interceptors.request.use(
       config.headers['Authorization'] = `bearer ${token}`
     } else {
       config.headers['Authorization'] =
-        'Basic ' + window.btoa('yyx-mall' + ':' + 'yyx-mall')
-    }
-    // 加入orgId
-    const userInfo = store.getters.userInfo
-    const orgId = Get(userInfo, 'orgId')
-    if (orgId) {
-      config.headers.orgId = orgId
+        'Basic ' + window.btoa('h5' + ':' + 'h5')
     }
     return config
   },
@@ -150,22 +120,14 @@ instance.interceptors.request.use(
 
 // 响应拦截器
 instance.interceptors.response.use((response) => {
-  const {
-    data: { code, data, msg }
-  } = response
-  removePending(response.config)
   reqCount--
   if (reqCount <= 0) {
     // 当某个接口异常后，reqCount赋值为0，其他接口正常响应后会变成负数
     // 当请求数量为0时，关闭loading
     hide()
   }
-  return resolveResponse(code, data, msg)
+  return resolveResponse(response)
 }, errorHandler)
-
-// const ToastNetError = () => {
-//   return Toast('网络异常，请稍候再试！')
-// }
 
 /**
  *
@@ -174,33 +136,29 @@ instance.interceptors.response.use((response) => {
  * @param {String} msg 返回消息
  * @description 解决response
  */
-const resolveResponse = (code, data, msg) => {
+const resolveResponse = (response) => {
+  const { data: { code, success, msg }} = response
+  console.log(code, success, msg)
   return new Promise((resolve, reject) => {
-    if (
-      toNumber(code) === SUCCESS ||
-      code === LOGIN_SUCCESS ||
-      code === LOGOUT_SUCCESS
-    ) {
-      resolve(data)
-    } else if (
-      code === UN_AUTHORIZED ||
-      code === CREDENTIALS_EXPIRED ||
-      code === UNAUTHORIZED_HEADER_IS_EMPTY ||
-      code === INVALID_TOKEN ||
-      code === FORBIDDEN ||
-      code === TOKEN_EXPIRED ||
-      code === TOKEN_PASS_OUT
-    ) {
-      Toast(msg || '请求未授权')
-      remove('token')
-      if (get('TENANT') === 'SHENG_YI_YUAN') {
-        router.replace('/provincial_hospital/login')
-      } else {
-        router.replace('/login')
-      }
+    if (success) {
+      resolve(response.data)
     } else {
-      Toast(msg)
-      reject(msg)
+      if (
+        code === UN_AUTHORIZED ||
+        code === CREDENTIALS_EXPIRED ||
+        code === UNAUTHORIZED_HEADER_IS_EMPTY ||
+        code === INVALID_TOKEN ||
+        code === FORBIDDEN ||
+        code === TOKEN_EXPIRED ||
+        code === TOKEN_PASS_OUT
+      ) {
+        // Toast(msg || '请求未授权')
+        remove('token')
+        router.replace('/login')
+      } else {
+        // Toast(msg)
+        reject(msg)
+      }
     }
   })
 }

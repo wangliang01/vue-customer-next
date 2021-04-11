@@ -1,0 +1,8 @@
+// 按钮种颜色
+$active_btn_color: #0CAA4B; 
+$disable_btn_color: #E4E6E6;
+
+:export {
+  activeBtnColor: $active_btn_color;
+  disableBtnColor: $disable_btn_color;
+}

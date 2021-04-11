@@ -1,15 +1,9 @@
+const path = require('path')
 const proxyTarget = {
-  li_yong: 'http://192.168.1.47:8866/', // 李勇
-  huang_fei: 'http://192.168.1.42:8866/', // 黄飞
-  tang_gang: 'http://192.168.1.43:8866/', // 唐刚
-  yi_tao: 'http://192.168.1.66:8866/', // 易涛
-  tang_hua: 'http://192.168.1.10:8866/', // 唐华
-  dev: 'https://dev.newhopescm.com/pron/', // 开发环境
-  login: 'https://47.108.199.196:8888/', // 测试环境登录地址
   test: 'https://test.newhopescm.com/pron/'// 测试环境
 }
 module.exports = {
-  outputDir: 'dist', // 打包的目录，用于在nginx下通过包名进行访问 如： http://xxx.com/shopping-mall/xxx
+  outputDir: 'dist',
   publicPath: './',
   // 反向代理的配置
   devServer: {
@@ -57,5 +51,14 @@ module.exports = {
         options.fix = true
         return options
       })
+  },
+  // 自动导入样式
+  pluginOptions: {
+    'style-resources-loader': {
+      preProcessor: 'scss',
+      patterns: [
+        path.resolve(__dirname, './src/styles/*.scss')
+      ]
+    }
   }
 }

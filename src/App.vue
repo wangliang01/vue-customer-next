@@ -1,6 +1,6 @@
 <template>
   <!-- 开启顶部安全区适配 -->
-  <van-nav-bar safe-area-inset-top></van-nav-bar>
+  <!-- <van-nav-bar safe-area-inset-top></van-nav-bar> -->
 
   <router-view></router-view>
 
