@@ -42,6 +42,7 @@ module.exports = {
       }
     }
   },
+  // webpack引入eslint
   chainWebpack: config => {
     config.module
       .rule('eslint')

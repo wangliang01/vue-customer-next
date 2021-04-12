@@ -41,11 +41,24 @@ import color from '@/styles/color.scss'
 import { Toast } from 'vant'
 import { login, getUserInfo } from '@/api/login'
 import * as local from '@/utils/local'
+/* 这是以前的写法
 import store from '@/store'
 import router from '@/router'
+*/
+// vue3的写法
+import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+import { useInstance } from '@/hooks/useInstance'
 export default {
   name: 'Login',
   setup(props, context) {
+    /* eslint-disable */
+    const {self } = useInstance()
+    console.log("self", self);
+    const router = useRouter()
+    const store = useStore()
+    // 清除页面所有缓存数据
+    local.clear()
     // 初始化表单
     const form = reactive({
       username: '',
@@ -135,7 +148,15 @@ export default {
       color: #292929;
       line-height: 66px;
     }
-    ::v-deep .van-cell{
+    // :v-deep以前的写法
+    /*
+     ::v-deep .van-cell{
+      padding: 36px 40px 32px;
+      font-size: 32px;
+      line-height: 44px;
+    }
+    */
+    ::v-deep(.van-cell){
       padding: 36px 40px 32px;
       font-size: 32px;
       line-height: 44px;
