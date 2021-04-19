@@ -71,8 +71,6 @@ export const transferNumStringToBoolean = str => {
 export const getThumb = (imgUrl, mode = 'fill', width = 100, height = 100) => {
   if (imgUrl && imgUrl.includes('http')) {
     return `${imgUrl}?x-oss-process=image/resize,m_${mode},h_${height},w_${width}`
-  } else {
-    return require('@/assets/images/good-default.png')
   }
 }
 /**
@@ -127,4 +125,11 @@ export function payHandle(url, isReplace) {
     }, 1000)
     Toast.fail('无法调用微信支付，请前往微信浏览器中重新支付')
   }
+}
+
+export function getComponentName(name, prefix = 'y') {
+  if (!name) return
+  return `${prefix}${name.replace(/[A-Z]/g, val => {
+    return `-${val.toLowerCase()}`
+  })}`
 }

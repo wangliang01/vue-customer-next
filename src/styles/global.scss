@@ -159,6 +159,22 @@
   background-color: transparent;
   color: inherit;
   outline: none;
+  border: none;
+  &::after {
+    border: none;
+  }
+}
+
+// 去除input默认样式
+.y-reset-input {
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  line-height: inherit;
+  background-color: transparent;
+  color: inherit;
+  outline: none;
+  border: none;
   &::after {
     border: none;
   }
@@ -169,35 +185,4 @@
   content: ' ';
   display: table;
   clear: both;
-}
-
-// 添加border
-.y-border,
-.y-border-bottom,
-.y-border-left,
-.y-border-right,
-.y-border-top,
-.y-border-top-bottom {
-  position: relative;
-}
-
-.y-border-bottom:after,
-.y-border-left:after,
-.y-border-right:after,
-.y-border-top-bottom:after,
-.y-border-top:after,
-.y-border:after {
-  content: ' ';
-  position: absolute;
-  left: 0;
-  top: 0;
-  pointer-events: none;
-  box-sizing: border-box;
-  -webkit-transform-origin: 0 0;
-  transform-origin: 0 0;
-  width: 200%;
-  height: 200%;
-  transform: scale(0.5, 0.5);
-  border: 0 solid #f7f7f7;
-  z-index: 2;
 }
