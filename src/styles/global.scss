@@ -1,0 +1,203 @@
+// 相对定位
+.y-relative, .y-rela {
+  position: relative;
+}
+
+// 绝对定位
+.y-absolute, .y-abso {
+  position: absolute;
+}
+
+// 字体设置
+.y-font-xs {
+	font-size: 12px;
+}
+
+.y-font-sm {
+	font-size: 14px;
+}
+
+.y-font-md {
+	font-size: 16px;
+}
+
+.y-font-lg {
+	font-size: 18px;
+}
+
+.y-font-xl {
+	font-size: 20px;
+}
+
+// flex布局
+.y-flex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.y-flex-wrap {
+  flex-wrap: wrap;
+}
+
+.y-flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+.y-col-center {
+  align-items: center;
+}
+
+.y-col-top {
+  align-items: flex-start;
+}
+
+.y-col-bottom {
+  align-items: flex-end;
+}
+
+.y-row-center {
+  justify-content: center;
+}
+
+.y-row-left {
+  justify-content: flex-start;
+}
+
+.y-row-right {
+  justify-content: flex-end;
+}
+
+.y-row-between {
+  justify-content: space-between;
+}
+
+.y-row-around {
+  justify-content: space-around;
+}
+
+.y-text-left {
+  text-align: left;
+}
+
+.y-text-center {
+  text-align: center;
+}
+
+.y-text-right {
+  text-align: right;
+}
+
+.y-flex-col {
+  flex-direction: column;
+}
+
+// 定义flex等分
+@for $i from 0 through 12 {
+  .y-flex-#{$i} {
+    flex: $i;
+  }
+}
+
+// 自定义字体(px)单位
+@for $i from 10 through 60 {
+  .y-font-#{$i} {
+    font-size: $i + px;
+  }
+}
+
+// 定义内外边距
+@for $i from 1 through 100 {
+  // margin
+  .y-margin-#{$i}, .u-m-#{$i} {
+    margin: $i + px!important;
+  }
+  // padding
+  .y-padding-#{$i}, .u-p-#{$i} {
+    padding: $i + px!important;
+  }
+
+  // 缩写 left, top, right, bottom
+  @each $short, $long in l left, t top, r right, b bottom {
+    // 定义外边距
+    .y-m-#{$short}-#{$i} {
+      margin-#{$long}: $i + px!important;
+    }
+    // 定义内边距
+    .y-p-#{$short}-#{$i} {
+      padding-#{$long}: $i + px!important;
+    }
+    // 定义外边距，完整版
+    .y-margin-#{$long}-#{$i} {
+      margin-#{$long}: $i + px!important;
+    }
+    // 定义内边距，完整版
+    .y-padding-#{$long}-#{$i} {
+      padding-#{$long}: $i + px!important;
+    }
+  }
+}
+
+// 定义显示几行
+@for $i from 1 through 5 {
+  .y-line-#{$i} {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    -webkit-line-clamp: $i;
+  }
+}
+
+// 去除button的默认样式
+.y-reset-button {
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  line-height: inherit;
+  background-color: transparent;
+  color: inherit;
+  outline: none;
+  &::after {
+    border: none;
+  }
+}
+
+// 清除浮动
+.y-clearfix:after, .clearfix:after {
+  content: ' ';
+  display: table;
+  clear: both;
+}
+
+// 添加border
+.y-border,
+.y-border-bottom,
+.y-border-left,
+.y-border-right,
+.y-border-top,
+.y-border-top-bottom {
+  position: relative;
+}
+
+.y-border-bottom:after,
+.y-border-left:after,
+.y-border-right:after,
+.y-border-top-bottom:after,
+.y-border-top:after,
+.y-border:after {
+  content: ' ';
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  box-sizing: border-box;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  width: 200%;
+  height: 200%;
+  transform: scale(0.5, 0.5);
+  border: 0 solid #f7f7f7;
+  z-index: 2;
+}

@@ -114,6 +114,9 @@ yarn add lodash moment
 
 在App.vue中引入iconfont.scss
 
+9. 引入global.scss
+在App.vue中引入global.scss
+
 9. 引入api
 引入api, 用于从后台请求数据
 

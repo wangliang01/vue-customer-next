@@ -2,6 +2,9 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import './styles/reset.scss'
+import './styles/iconfont.scss'
+import './styles/global.scss'
 // 引入rem
 import './utils/rem'
 // 引入vant

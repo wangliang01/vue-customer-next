@@ -9,6 +9,5 @@
 </template>
 
 <style lang="scss">
-@import url('./styles/reset.scss');
-@import url('./styles/iconfont.scss');
+
 </style>

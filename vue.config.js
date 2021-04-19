@@ -52,6 +52,7 @@ module.exports = {
         options.fix = true
         return options
       })
+      .end()
   },
   // 自动导入样式
   pluginOptions: {
