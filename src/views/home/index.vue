@@ -2,7 +2,7 @@
   <div class="home">
     <y-pull-refresh class="pull-fresh-container" @refresh="handleRefresh">
       <!-- 搜索 -->
-      <y-search></y-search>
+      <y-search @click="goSearch"></y-search>
       <!-- 组织 -->
       <y-select-org></y-select-org>
       <!-- 客户列表 -->
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { ref } from 'vue'
 import api from '@/api'
@@ -77,10 +78,19 @@ export default {
       cb()
     }
 
+    const router = useRouter()
+    // 前往搜索页
+    const goSearch = () => {
+      router.push({
+        path: '/search'
+      })
+    }
+
     loadData()
     return {
       customerList,
-      handleRefresh
+      handleRefresh,
+      goSearch
     }
   }
 }

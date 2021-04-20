@@ -1,5 +1,5 @@
 <template>
-  <y-search></y-search>
+  <y-search focus></y-search>
 </template>
 
 <script>

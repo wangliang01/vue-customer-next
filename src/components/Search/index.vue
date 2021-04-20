@@ -1,28 +1,43 @@
 <template>
   <div class="search-component">
     <div class="search-wrapper y-flex y-row-between">
-      <input v-model="content" type="text" class="y-reset-input search-input">
+      <input ref="input" v-model="content" type="text" class="y-reset-input search-input" @click="handleClick">
       <button class="y-reset-button search-btn" @click="handleSearch">搜索</button>
     </div>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 export default {
   name: 'Search',
   components: {
   },
   props: {
+    focus: {
+      type: Boolean,
+      default: false
+    }
   },
-  setup() {
+  setup(props, { emit }) {
+    const input = ref(null)
     const content = ref('')
     const handleSearch = () => {
-      console.log('content', content.value)
+      emit('search', content.value)
     }
+    const handleClick = () => {
+      emit('click')
+    }
+
+    // onMounted
+    onMounted(() => {
+      props.focus && input.value.focus()
+    })
     return {
+      input,
       content,
-      handleSearch
+      handleSearch,
+      handleClick
     }
   }
 }
