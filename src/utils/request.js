@@ -163,7 +163,20 @@ const resolveResponse = (response) => {
   })
 }
 
-export default instance
+export default {
+  get: function(url, data, header) {
+    return instance.get(url, { params: data }, header)
+  },
+  post: function(url, data, header) {
+    return instance.post(url, data, header)
+  },
+  put: function(url, data, header) {
+    return instance.put(url, data, header)
+  },
+  delete: function(url, data, header) {
+    return instance.delete(url, { params: data }, header)
+  }
+}
 
 const serviceName =
   process.env.NODE_ENV === 'production' ? 'yyx-mall' : 'yyx-mall' // 后端配置的服务名

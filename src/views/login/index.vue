@@ -131,6 +131,7 @@ export default {
 <style lang="scss" scoped>
 .login {
   height: 100vh;
+  background-color: #fff;
   background-image: url('https://yyx-mall.oss-cn-chengdu.aliyuncs.com/mp-icons/customer_login_bg.png');
   background-repeat: no-repeat;
   background-size: 100% 560px;

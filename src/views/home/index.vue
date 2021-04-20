@@ -1,15 +1,22 @@
 <template>
   <div class="home">
-    <!-- 搜索 -->
-    <y-search></y-search>
-    <!-- 组织 -->
-    <y-select-org></y-select-org>
-    <!-- 客户列表 -->
-    <y-customer-item></y-customer-item>
+    <y-pull-refresh class="pull-fresh-container" @refresh="handleRefresh">
+      <!-- 搜索 -->
+      <y-search></y-search>
+      <!-- 组织 -->
+      <y-select-org></y-select-org>
+      <!-- 客户列表 -->
+
+      <y-customer-item v-for="(item, index) in customerList" :key="index" :customer="item"></y-customer-item>
+    </y-pull-refresh>
   </div>
 </template>
 
 <script>
+import { useStore } from 'vuex'
+import { ref } from 'vue'
+import api from '@/api'
+import { get } from 'lodash'
 export default {
   name: 'Home',
   components: {
@@ -17,13 +24,70 @@ export default {
   props: {
   },
   setup() {
-    return {
+    const queryParams = {
+      current: 1,
+      size: 10,
+      orgIdList: []
+    }
 
+    const customerList = ref([])
+
+    const store = useStore()
+
+    const userInfo = store.state.userInfo
+
+    // 组织信息
+    const orgInfoList = userInfo?.orgInfoList
+    const orgIdList = orgInfoList.map(item => item.orgId)
+    console.log('orgIdList', orgIdList)
+
+    const setQueryParams = ({ orgIdList, size, current }) => {
+      if (size) {
+        queryParams.size = size
+      }
+      if (current) {
+        queryParams.current = current
+      }
+      if (orgIdList) {
+        queryParams.orgIdList = orgIdList.join(',')
+      }
+    }
+    setQueryParams({ orgIdList })
+    // 获取数据
+    const loadData = async() => {
+      const res = await api.home.getCustomerList(queryParams)
+      if (res.success) {
+        console.log(res.data)
+        const total = res.data.count // 总数
+        if (customerList.value.length >= total) return
+        const list = get(res, 'data.saleCustomerDetail.records', [])
+        customerList.value = [...customerList.value, ...list]
+      }
+    }
+
+    // 刷新数据
+    const handleRefresh = async(cb) => {
+      // 先清空数据
+      customerList.value = []
+      setQueryParams({
+        current: 1,
+        orgIdList
+      })
+      await loadData()
+      cb()
+    }
+
+    loadData()
+    return {
+      customerList,
+      handleRefresh
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
+.pull-fresh-container {
+  padding-top: 125px;
+}
 </style>

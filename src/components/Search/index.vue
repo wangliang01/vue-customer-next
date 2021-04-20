@@ -30,6 +30,11 @@ export default {
 
 <style lang="scss" scoped>
 .search-component{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
   padding: 18px 24px 34px;
   background-color: #fff;
   .search-wrapper {

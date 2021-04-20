@@ -3,19 +3,19 @@
     <div class="customer-item-wrapper ">
       <div class="item-row">
         <div class="label y-line-2">客户名称：</div>
-        <div class="value y-line-2">蜡笔小新</div>
+        <div class="value y-line-2">{{ customer.customerName }}</div>
       </div>
       <div class="item-row">
         <div class="label y-line-2">联系人：</div>
-        <div class="value y-line-2">小白</div>
+        <div class="value y-line-2">{{ customer.name }}</div>
       </div>
       <div class="item-row">
         <div class="label y-line-2">联系电话：</div>
-        <div class="value y-line-2">19922289201</div>
+        <div class="value y-line-2">{{ customer.phone }}</div>
       </div>
       <div class="item-row">
         <div class="label y-line-2">客户地址：</div>
-        <div class="value y-line-2">北京市市辖区东城区109号18栋17楼9号</div>
+        <div class="value y-line-2">{{ computedAddress }}</div>
       </div>
       <div class="van-hairline--bottom"></div>
     </div>
@@ -32,10 +32,15 @@ export default {
   components: {
   },
   props: {
+    customer: {
+      type: Object,
+      default: () => {}
+    }
   },
-  setup() {
+  setup(props) {
+    const computedAddress = props.customer.addressName + props.customer.address
     return {
-
+      computedAddress
     }
   }
 }
