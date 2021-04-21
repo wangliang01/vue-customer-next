@@ -99,6 +99,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.pull-refresh{
+  min-height: 100vh;
+}
 .refresh-text {
   display: none;
   padding: 20px 20px 0;

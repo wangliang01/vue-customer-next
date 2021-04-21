@@ -14,7 +14,7 @@ export default {
   },
   props: {
   },
-  setup() {
+  setup(props, { emit }) {
     return {
 
     }

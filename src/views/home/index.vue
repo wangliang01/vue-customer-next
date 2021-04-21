@@ -9,6 +9,7 @@
 
       <y-customer-item v-for="(item, index) in customerList" :key="index" :customer="item"></y-customer-item>
     </y-pull-refresh>
+
   </div>
 </template>
 
@@ -40,7 +41,6 @@ export default {
     // 组织信息
     const orgInfoList = userInfo?.orgInfoList
     const orgIdList = orgInfoList.map(item => item.orgId)
-    console.log('orgIdList', orgIdList)
 
     const setQueryParams = ({ orgIdList, size, current }) => {
       if (size) {
@@ -97,6 +97,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.home {
+  min-height: 100vh;
+}
 .pull-fresh-container {
   padding-top: 125px;
 }
