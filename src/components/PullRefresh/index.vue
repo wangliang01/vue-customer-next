@@ -100,7 +100,8 @@ export default {
 
 <style lang="scss" scoped>
 .pull-refresh{
-  min-height: 100vh;
+  height: 100vh;
+  box-sizing: border-box;
 }
 .refresh-text {
   display: none;

@@ -29,6 +29,7 @@ module.exports = {
     'vue/order-in-components': 2,
     'vue/this-in-template': 2,
     'vue/no-mutating-props': 'off',
+    'vue/no-v-model-argument': 'off',
     'vue/html-self-closing': [2, {
       'html': {
         'void': 'never',

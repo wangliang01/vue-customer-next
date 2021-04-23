@@ -827,7 +827,7 @@
     "@babel/types" "^7.4.4"
     esutils "^2.0.2"
 
-"@babel/runtime@7.x", "@babel/runtime@^7.11.0", "@babel/runtime@^7.8.4":
+"@babel/runtime@^7.11.0", "@babel/runtime@^7.8.4":
   version "7.13.10"
   resolved "https://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.13.10.tgz#47d42a57b6095f4468da440388fdbad8bebf0d7d"
   integrity sha1-R9QqV7YJX0Ro2kQDiP262L6/DX0=
@@ -922,8 +922,8 @@
 
 "@popperjs/core@^2.9.2":
   version "2.9.2"
-  resolved "https://registry.npm.taobao.org/@popperjs/core/download/@popperjs/core-2.9.2.tgz?cache=0&sync_timestamp=1617290098226&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40popperjs%2Fcore%2Fdownload%2F%40popperjs%2Fcore-2.9.2.tgz#adea7b6953cbb34651766b0548468e743c6a2353"
-  integrity sha1-rep7aVPLs0ZRdmsFSEaOdDxqI1M=
+  resolved "https://registry.npmjs.org/@popperjs/core/-/core-2.9.2.tgz#adea7b6953cbb34651766b0548468e743c6a2353"
+  integrity sha512-VZMYa7+fXHdwIq1TDhSXoVmSPEGM/aa+6Aiq3nVVJ9bXr24zScr+NlKFKC3iPljA7ho/GAZr+d2jOf5GIRC30Q==
 
 "@soda/friendly-errors-webpack-plugin@^1.7.1":
   version "1.8.0"
@@ -1111,27 +1111,25 @@
 
 "@vant/icons@^1.5.3":
   version "1.5.3"
-  resolved "https://registry.npm.taobao.org/@vant/icons/download/@vant/icons-1.5.3.tgz#b7779f67bf608d417a82452fbede406dfa46b439"
-  integrity sha1-t3efZ79gjUF6gkUvvt5AbfpGtDk=
+  resolved "https://registry.npmjs.org/@vant/icons/-/icons-1.5.3.tgz#b7779f67bf608d417a82452fbede406dfa46b439"
+  integrity sha512-OQaJqAWN6quHicWje4buknX9zcDo3UDy3X4nrk/ldnr9Fj8Str4nMtQbMbIrCMtmjQdP2ei769uuY508dudrjA==
 
-"@vant/lazyload@^1.0.4":
-  version "1.1.0"
-  resolved "https://registry.npm.taobao.org/@vant/lazyload/download/@vant/lazyload-1.1.0.tgz#9b742df97e6a119d4e2bc9096d6b9a5570d4c10c"
-  integrity sha1-m3Qt+X5qEZ1OK8kJbWuaVXDUwQw=
+"@vant/lazyload@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/@vant/lazyload/-/lazyload-1.1.1.tgz#9eafcf85cdd750463a552a07cf18e5c620c6ccef"
+  integrity sha512-ejMxgeWP0GBAuzwaC0RG131JKI4SKSpu9kxNR/wyWdOZmkrAR7HZO0GciGG2illgKvs11gPtepik8X/k9iWIXw==
 
-"@vant/popperjs@^1.0.4":
+"@vant/popperjs@^1.1.0":
   version "1.1.0"
-  resolved "https://registry.npm.taobao.org/@vant/popperjs/download/@vant/popperjs-1.1.0.tgz?cache=0&sync_timestamp=1617712371368&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vant%2Fpopperjs%2Fdownload%2F%40vant%2Fpopperjs-1.1.0.tgz#b4edee5bbfa6fb18705986e313d4fd5f17942a0f"
-  integrity sha1-tO3uW7+m+xhwWYbjE9T9XxeUKg8=
+  resolved "https://registry.npmjs.org/@vant/popperjs/-/popperjs-1.1.0.tgz#b4edee5bbfa6fb18705986e313d4fd5f17942a0f"
+  integrity sha512-8MD1gz146awV/uPxYjz4pet22f7a9YVKqk7T+gFkWFwT9mEcrIUEg/xPrdOnWKLP9puXyYtm7oVfSDSefZ/p/w==
   dependencies:
     "@popperjs/core" "^2.9.2"
 
-"@vant/use@^1.0.5":
-  version "1.1.0"
-  resolved "https://registry.npm.taobao.org/@vant/use/download/@vant/use-1.1.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vant%2Fuse%2Fdownload%2F%40vant%2Fuse-1.1.0.tgz#f38f765db36401699310d75d323440e5d8f42674"
-  integrity sha1-8492XbNkAWmTENddMjRA5dj0JnQ=
-  dependencies:
-    "@babel/runtime" "7.x"
+"@vant/use@^1.1.1":
+  version "1.1.2"
+  resolved "https://registry.npmjs.org/@vant/use/-/use-1.1.2.tgz#d35265e05df88a47b04196a308efb5e89e44ca10"
+  integrity sha512-s4YO6zqJ3NlGeAZ104exb0c/KvlXB908pOhWhCyhfedVBn1eBnKH401ildK0sttazmq0CH8jme6mnw2ZzZvutw==
 
 "@vue/babel-helper-vue-jsx-merge-props@^1.2.1":
   version "1.2.1"
@@ -8715,16 +8713,15 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-vant@^3.0.12:
-  version "3.0.12"
-  resolved "https://registry.npm.taobao.org/vant/download/vant-3.0.12.tgz#e5088008a1090c79789b0e0552c698c8178b5aba"
-  integrity sha1-5QiACKEJDHl4mw4FUsaYyBeLWro=
+vant@^3.0.14:
+  version "3.0.14"
+  resolved "https://registry.npmjs.org/vant/-/vant-3.0.14.tgz#a6f22a682b41dcddf774868e7797c169dc04df5a"
+  integrity sha512-95cPPGebkRpJbxWSLijtw6AwCO2K+PoWO1/itSg9npiLQSKc2g9n+Z5cumYOrpvhn2WmIzeDWNt6+gFxDh1W5Q==
   dependencies:
-    "@babel/runtime" "7.x"
     "@vant/icons" "^1.5.3"
-    "@vant/lazyload" "^1.0.4"
-    "@vant/popperjs" "^1.0.4"
-    "@vant/use" "^1.0.5"
+    "@vant/lazyload" "^1.1.1"
+    "@vant/popperjs" "^1.1.0"
+    "@vant/use" "^1.1.1"
 
 vary@~1.1.2:
   version "1.1.2"
