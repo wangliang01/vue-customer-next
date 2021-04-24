@@ -4,10 +4,18 @@
       <!-- 搜索 -->
       <y-search @click="goSearch"></y-search>
       <!-- 组织 -->
-      <y-select-org></y-select-org>
+      <y-select-org @select="handleReload"></y-select-org>
       <!-- 客户列表 -->
 
-      <y-customer-item v-for="(item, index) in customerList" :key="index" :customer="item"></y-customer-item>
+      <van-list
+        v-model:loading="state.loading"
+        :finished="state.finished"
+        :immediate-check="false"
+        finished-text="没有更多了"
+        @load="loadData"
+      >
+        <y-customer-item v-for="(item, index) in customerList" :key="index" :customer="item"></y-customer-item>
+      </van-list>
     </y-pull-refresh>
 
   </div>
@@ -32,6 +40,14 @@ export default {
       orgIdList: []
     }
 
+    const state = ref({
+      loading: false,
+      finished: false,
+      refreshing: false
+    })
+
+    const curOrgId = ref('') // 全部
+
     const customerList = ref([])
 
     const store = useStore()
@@ -53,16 +69,21 @@ export default {
         queryParams.orgIdList = orgIdList.join(',')
       }
     }
-    setQueryParams({ orgIdList })
+
     // 获取数据
     const loadData = async() => {
       const res = await api.home.getCustomerList(queryParams)
       if (res.success) {
-        console.log(res.data)
         const total = res.data.count // 总数
-        if (customerList.value.length >= total) return
         const list = get(res, 'data.saleCustomerDetail.records', [])
         customerList.value = [...customerList.value, ...list]
+        // 加载状态结束
+        state.value.loading = false
+
+        // 数据全部加载完成
+        if (customerList.value.length >= total) {
+          state.value.finished = true
+        }
       }
     }
 
@@ -72,10 +93,17 @@ export default {
       customerList.value = []
       setQueryParams({
         current: 1,
-        orgIdList
+        orgIdList: curOrgId.value ? [curOrgId.value] : orgIdList // orgId为空，表示选择全部
       })
       await loadData()
       cb()
+    }
+
+    // 重新请求数据
+    const handleReload = (selectOrg) => {
+      if (!selectOrg) return
+      curOrgId.value = selectOrg.orgId
+      handleRefresh()
     }
 
     const router = useRouter()
@@ -86,11 +114,16 @@ export default {
       })
     }
 
+    setQueryParams({ orgIdList })
     loadData()
+
     return {
       customerList,
       handleRefresh,
-      goSearch
+      goSearch,
+      handleReload,
+      state,
+      loadData
     }
   }
 }
@@ -99,8 +132,11 @@ export default {
 <style lang="scss" scoped>
 .home {
   min-height: 100vh;
+  overflow-y: auto;
 }
 .pull-fresh-container {
   padding-top: 125px;
+  padding-bottom: 60px;
+
 }
 </style>

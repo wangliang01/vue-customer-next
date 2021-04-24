@@ -1,6 +1,7 @@
 <template>
   <!-- 下拉刷新 -->
   <div
+    ref="pullRefresh"
     class="pull-refresh"
     @touchstart="touchStart"
     @touchmove="touchMove"
@@ -17,7 +18,7 @@
 </template>
 
 <script>
-import { reactive, toRefs } from 'vue'
+import { reactive, toRefs, ref } from 'vue'
 export default {
   name: 'PullRefresh', // 下拉刷新
   setup(props, ctx) {
@@ -28,8 +29,12 @@ export default {
       touching: false // 是否开启下拉刷新行为
     })
 
+    const pullRefresh = ref(null)
+
     const touchStart = (e) => {
       data.startY = e.touches[0].pageY
+      console.log('startY', data.startY, e)
+
       // 开启下拉刷新状态
       data.touching = true
     }
@@ -40,10 +45,17 @@ export default {
       if (!data.touching) return
       // 获取移动的距离
       const diff = e.touches[0].pageY - data.startY
+      const scrollTop = pullRefresh.value.scrollTop
       // 判断是上拉还是下拉
       if (diff > 0) {
         // 下拉
-        e.preventDefault()
+        if (scrollTop === 0) {
+          // 位于滚动元素顶部并且向下滑动时,下拉刷新
+          e.preventDefault()
+        } else {
+          // 向下滚动
+          return
+        }
       } else {
         // 上拉时，则什么也不做
         return
@@ -60,7 +72,6 @@ export default {
     }
 
     const touchEnd = e => {
-      console.log('touchend', data.top)
       data.touching = false
       if (data.state === 2) {
         // 这里可以调用父组件的方法去请求刷新接口
@@ -79,7 +90,6 @@ export default {
     const refresh = () => {
       data.state = 2
       data.top = 20
-      console.log(data.top)
       // 这里可以调用父组件的方法去请求刷新接口
       ctx.emit('refresh', () => {
         data.state = 0
@@ -92,7 +102,8 @@ export default {
       touchStart,
       touchMove,
       touchEnd,
-      refresh
+      refresh,
+      pullRefresh
     }
   }
 }
@@ -102,6 +113,7 @@ export default {
 .pull-refresh{
   height: 100vh;
   box-sizing: border-box;
+  overflow-y: auto;
 }
 .refresh-text {
   display: none;
