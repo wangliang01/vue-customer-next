@@ -6,8 +6,9 @@
       <!-- 组织 -->
       <y-select-org @select="handleReload"></y-select-org>
       <!-- 客户列表 -->
-
+      <y-empty v-if="showEmpty"></y-empty>
       <van-list
+        v-else
         v-model:loading="state.loading"
         :finished="state.finished"
         :immediate-check="false"
@@ -42,7 +43,7 @@ export default {
   setup() {
     const queryParams = {
       current: 1,
-      size: 4,
+      size: 10,
       orgIdList: []
     }
 
@@ -51,6 +52,8 @@ export default {
       finished: false,
       error: false
     })
+
+    const showEmpty = ref(false) // 是否展示空组件
 
     const curOrgId = ref('') // 全部
 
@@ -79,6 +82,7 @@ export default {
     // 获取数据
     const loadData = async() => {
       try {
+        showEmpty.value = false
         const res = await api.home.getCustomerList(queryParams)
         if (res.success) {
           const total = res.data.count // 总数
@@ -91,9 +95,15 @@ export default {
           if (customerList.value.length >= total) {
             state.value.finished = true
           }
+
+          // 如果total等于0，则显示空组件
+          if (total === 0) {
+            showEmpty.value = true
+          }
         }
       } catch (error) {
         state.value.error = true
+        showEmpty.value = true
       }
     }
 
@@ -106,7 +116,7 @@ export default {
         orgIdList: curOrgId.value ? [curOrgId.value] : orgIdList // orgId为空，表示选择全部
       })
       await loadData()
-      cb()
+      cb && cb()
     }
 
     // 重新请求数据
@@ -125,7 +135,7 @@ export default {
     }
 
     const handdleLoad = () => {
-      console.log('加载中')
+      // 优化加载效果，作一延迟，展示加载中的字样，提高用户体验
       setTimeout(() => {
         loadData()
       }, 300)
@@ -141,7 +151,8 @@ export default {
       handleReload,
       state,
       loadData,
-      handdleLoad
+      handdleLoad,
+      showEmpty
     }
   }
 }
