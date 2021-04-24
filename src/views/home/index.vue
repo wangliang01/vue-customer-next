@@ -12,9 +12,15 @@
         :finished="state.finished"
         :immediate-check="false"
         finished-text="没有更多了"
-        @load="loadData"
+        error-text="请求失败，点击重新加载"
+        loading-text="加载中"
+        offset="0"
+        @load="handdleLoad"
       >
         <y-customer-item v-for="(item, index) in customerList" :key="index" :customer="item"></y-customer-item>
+        <template #loading>
+          <van-loading type="spinner" size="20px">加载中</van-loading>
+        </template>
       </van-list>
     </y-pull-refresh>
 
@@ -36,14 +42,14 @@ export default {
   setup() {
     const queryParams = {
       current: 1,
-      size: 10,
+      size: 4,
       orgIdList: []
     }
 
     const state = ref({
       loading: false,
       finished: false,
-      refreshing: false
+      error: false
     })
 
     const curOrgId = ref('') // 全部
@@ -72,18 +78,22 @@ export default {
 
     // 获取数据
     const loadData = async() => {
-      const res = await api.home.getCustomerList(queryParams)
-      if (res.success) {
-        const total = res.data.count // 总数
-        const list = get(res, 'data.saleCustomerDetail.records', [])
-        customerList.value = [...customerList.value, ...list]
-        // 加载状态结束
-        state.value.loading = false
+      try {
+        const res = await api.home.getCustomerList(queryParams)
+        if (res.success) {
+          const total = res.data.count // 总数
+          const list = get(res, 'data.saleCustomerDetail.records', [])
+          customerList.value = [...customerList.value, ...list]
+          // 加载状态结束
+          state.value.loading = false
 
-        // 数据全部加载完成
-        if (customerList.value.length >= total) {
-          state.value.finished = true
+          // 数据全部加载完成
+          if (customerList.value.length >= total) {
+            state.value.finished = true
+          }
         }
+      } catch (error) {
+        state.value.error = true
       }
     }
 
@@ -114,6 +124,13 @@ export default {
       })
     }
 
+    const handdleLoad = () => {
+      console.log('加载中')
+      setTimeout(() => {
+        loadData()
+      }, 300)
+    }
+
     setQueryParams({ orgIdList })
     loadData()
 
@@ -123,7 +140,8 @@ export default {
       goSearch,
       handleReload,
       state,
-      loadData
+      loadData,
+      handdleLoad
     }
   }
 }

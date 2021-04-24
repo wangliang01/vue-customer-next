@@ -33,7 +33,6 @@ export default {
 
     const touchStart = (e) => {
       data.startY = e.touches[0].pageY
-      console.log('startY', data.startY, e)
 
       // 开启下拉刷新状态
       data.touching = true
