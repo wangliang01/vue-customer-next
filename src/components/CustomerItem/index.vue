@@ -20,13 +20,14 @@
       <div class="van-hairline--bottom"></div>
     </div>
     <div class="customer-btn-wrapper">
-      <button class="view-btn y-reset-button">查看详情</button>
-      <button class="add-child-btn y-reset-button">新增子级客户</button>
+      <button class="view-btn y-reset-button" @click="goDetail">查看详情</button>
+      <button class="add-child-btn y-reset-button" @click="goAddCustomer">新增子级客户</button>
     </div>
   </div>
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
 export default {
   name: 'CustomerItem',
   components: {
@@ -38,9 +39,33 @@ export default {
     }
   },
   setup(props) {
+    const router = useRouter()
     const computedAddress = props.customer.addressName + props.customer.address
+    // 查看客户详情
+    const goDetail = (item) => {
+      router.push({
+        path: '/customerDetail',
+        query: {
+          id: item.id,
+          orgId: item.orgId
+        }
+      })
+    }
+    // 新增子级客户
+    const goAddCustomer = (item) => {
+      router.push({
+        path: '/addCustomer',
+        query: {
+          isAddChild: 1,
+          id: item.id,
+          orgId: item.orgId
+        }
+      })
+    }
     return {
-      computedAddress
+      computedAddress,
+      goDetail,
+      goAddCustomer
     }
   }
 }
