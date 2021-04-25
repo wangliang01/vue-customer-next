@@ -1,7 +1,11 @@
 <template>
   <div class="cell">
-    <div class="label">{{ label }}</div>
-    <div class="value y-line-2">{{ value }}</div>
+    <div class="label">
+      <slot name="label">{{ label }}</slot>
+    </div>
+    <div class="value y-line-2">
+      <slot name="value">{{ value }}</slot>
+    </div>
   </div>
 </template>
 
@@ -35,6 +39,9 @@ export default {
   padding: 0 24px 0 30px;
   margin-bottom: 28px;
   background-color: #fff;
+  &:last-child{
+    margin-bottom: 0;
+  }
   .label {
     width: 200px;
     font-size: 26px;
