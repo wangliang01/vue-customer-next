@@ -23,8 +23,11 @@
           <van-loading type="spinner" size="20px">加载中</van-loading>
         </template>
       </van-list>
+      <!-- 新增客客户 -->
+      <div v-if="!showEmpty" class="btn-wrapper" @click="goAddCustomer">
+        <button class="y-reset-button add-btn">新增客户</button>
+      </div>
     </y-pull-refresh>
-
   </div>
 </template>
 
@@ -134,6 +137,13 @@ export default {
       })
     }
 
+    // 前往新增客户页面
+    const goAddCustomer = () => {
+      router.push({
+        path: '/addCustomer'
+      })
+    }
+
     const handdleLoad = () => {
       // 优化加载效果，作一延迟，展示加载中的字样，提高用户体验
       setTimeout(() => {
@@ -148,6 +158,7 @@ export default {
       customerList,
       handleRefresh,
       goSearch,
+      goAddCustomer,
       handleReload,
       state,
       loadData,
@@ -167,5 +178,26 @@ export default {
   padding-top: 125px;
   padding-bottom: 60px;
 
+}
+.btn-wrapper{
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  padding: 22px 24px;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+.add-btn {
+  display: block;
+  width: 100%;
+  height: 80px;
+  background: linear-gradient(90deg, #33DB6B 0%, #26C164 100%);
+  border-radius: 40px;
+  font-size: 36px;
+  font-family: PingFang-SC-Medium, PingFang-SC;
+  font-weight: 500;
+  color: #FFFFFF;
+  line-height: 50px;
 }
 </style>

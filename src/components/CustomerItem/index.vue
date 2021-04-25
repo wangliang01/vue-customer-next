@@ -20,8 +20,8 @@
       <div class="van-hairline--bottom"></div>
     </div>
     <div class="customer-btn-wrapper">
-      <button class="view-btn y-reset-button" @click="goDetail">查看详情</button>
-      <button class="add-child-btn y-reset-button" @click="goAddCustomer">新增子级客户</button>
+      <button class="view-btn y-reset-button" @click="goDetail(customer)">查看详情</button>
+      <button class="add-child-btn y-reset-button" @click="goAddCustomer(customer)">新增子级客户</button>
     </div>
   </div>
 </template>
