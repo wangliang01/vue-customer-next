@@ -1,6 +1,6 @@
 <template>
   <div class="customer-detail">
-    客户详情
+    <y-cell></y-cell>
   </div>
 </template>
 
