@@ -2,7 +2,7 @@
   <div class="image">
     <h3>{{ title }}</h3>
     <div class="image-wrapper">
-      <van-image :src="imgUrl"></van-image>
+      <van-image :src="imgUrl" fit="cover"></van-image>
       <p class="tips">{{ tips }}</p>
     </div>
   </div>
