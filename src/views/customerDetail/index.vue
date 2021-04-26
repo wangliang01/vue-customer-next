@@ -24,7 +24,10 @@
       <y-cell label="是否只卖库存" value="是"></y-cell>
       <y-cell label="是否显示库存" value="是"></y-cell>
     </section>
-    <y-image></y-image>
+    <!-- 客户LOGO -->
+    <y-image title="客户LOGO" tips="提示：将作为客户商城的LOGO"></y-image>
+    <!-- 商城背景图 -->
+    <y-image title="商城背景图" tips="提示：将作为客户商城的背景图，非必传，不传则背景图为默认"></y-image>
   </div>
 </template>
 

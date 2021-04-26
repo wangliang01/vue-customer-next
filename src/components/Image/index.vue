@@ -1,23 +1,42 @@
 <template>
   <div class="image">
-    <h3>客户LOGO</h3>
+    <h3>{{ title }}</h3>
     <div class="image-wrapper">
-      <van-image></van-image>
-      <p class="tips">提示：将作为客户商城的LOGO</p>
+      <van-image :src="imgUrl"></van-image>
+      <p class="tips">{{ tips }}</p>
     </div>
   </div>
 </template>
 
 <script>
+import { computed } from 'vue'
 export default {
   name: 'Image',
   components: {
   },
   props: {
+    title: {
+      type: String,
+      default: ''
+    },
+    src: {
+      type: String,
+      default: ''
+    },
+    tips: {
+      type: String,
+      default: ''
+    }
   },
-  setup() {
+  setup(props) {
+    const imgUrl = computed(() => {
+      if (props.src && props.src.includes('http')) {
+        return props.src
+      }
+      return 'https://yyx-mall.oss-cn-chengdu.aliyuncs.com/customer-icon/pic-default.png'
+    })
     return {
-
+      imgUrl
     }
   }
 }
@@ -46,6 +65,8 @@ export default {
     background: #F4F5F6;
     border-radius: 12px;
     border: 2px solid #E6E6E6;
+    box-sizing: border-box;
+    overflow: hidden;
   }
   .tips {
     margin: 16px 0 28px;
