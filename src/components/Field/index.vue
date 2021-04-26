@@ -35,5 +35,19 @@ export default {
       width: 204px;
     }
   }
+  ::v-deep(.van-cell--required) {
+    &::before {
+      position: absolute;
+      content: '*';
+      left: 2.4em;
+      font-size: 28px;
+      font-family: PingFang-SC-Medium, PingFang-SC;
+      font-weight: 500;
+      color: #FA3321;
+      line-height: 32px;
+    }
+  }
+
 }
+
 </style>
