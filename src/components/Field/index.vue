@@ -1,13 +1,6 @@
 <template>
   <div class="field-wrapper">
-    <div class="field">
-      <div class="field-label">
-        客户名称
-      </div>
-      <div class="field-value">
-        12211321
-      </div>
-    </div>
+    <van-field v-bind="$attrs" class="field" v-on="$liseners"></van-field>
   </div>
 </template>
 
@@ -38,11 +31,8 @@ export default {
     align-items: center;
     height: 100%;
     border-bottom: 1px solid #eee;
-    .field-label {
-      width: 216px;
-    }
-    .field-value {
-      flex: 1;
+    ::v-deep(.van-field__label) {
+      width: 204px;
     }
   }
 }
