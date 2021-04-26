@@ -76,7 +76,7 @@ export default {
   height: 348px;
   background: #FFFFFF;
   border-radius: 16px;
-  margin: 0 24px 24px;
+  margin: 20px 24px;
   &:last-child{
     margin-bottom: 0;
   }

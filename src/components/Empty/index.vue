@@ -1,6 +1,6 @@
 <template>
   <div class="empty">
-    <van-image class="empty-img"></van-image>
+    <van-image class="empty-img" fit="contain" src="https://yyx-mall.oss-cn-chengdu.aliyuncs.com/customer-icon/empty.png"></van-image>
     <div class="empty-tips y-block">未搜索到客户信息</div>
     <button class="y-reset-button empty-btn">新增客户</button>
   </div>

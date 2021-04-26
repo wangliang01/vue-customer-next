@@ -116,7 +116,7 @@ export default {
       customerList.value = []
       setQueryParams({
         current: 1,
-        orgIdList: curOrgId.value ? [curOrgId.value] : orgIdList // orgId为空，表示选择全部
+        orgIdList: curOrgId.value ? curOrgId.value : orgIdList.join(',') // orgId为空，表示选择全部
       })
       await loadData()
       cb && cb()

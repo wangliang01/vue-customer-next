@@ -76,15 +76,16 @@ export default {
         queryParams.customer = customer
       }
       if (orgIdList) {
-        queryParams.orgIdList = orgIdList
+        queryParams.orgIdList = Array.isArray(orgIdList) ? orgIdList.join(',') : orgIdList
       }
     }
 
     const handleSearch = async(content) => {
+      state.value.finished = false
       customerList.value = []
       const curOrg = store.state.curOrg
       if (curOrg) {
-        setQueryParams({ customer: content, orgIdList: [curOrg], current: 1 })
+        setQueryParams({ customer: content, orgIdList: curOrg, current: 1 })
       } else {
         setQueryParams({ customer: content, orgIdList: orgIdList.join(','), current: 1 })
       }
@@ -121,6 +122,7 @@ export default {
 
     // 刷新数据
     const handleRefresh = async(cb) => {
+      state.value.finished = false
       // 先清空数据
       customerList.value = []
       setQueryParams({
