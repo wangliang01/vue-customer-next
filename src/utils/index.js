@@ -62,6 +62,23 @@ export const transferNumStringToBoolean = str => {
 }
 
 /**
+ *
+ * @param {Number} str
+ * @description 将数值类型的字符串转换为布尔值类型
+ */
+export const transNumberToBoolean = num => {
+  console.log('num', num)
+  switch (num) {
+    case 1:
+      return '是'
+    case 0:
+      return '否'
+    default:
+      return ''
+  }
+}
+
+/**
  * 获取缩略图
  * @param {String} imgUrl // 原图地址
  * @param {String} mode 模式：lfit， fixed, fill, pad
