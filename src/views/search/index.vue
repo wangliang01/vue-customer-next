@@ -6,7 +6,7 @@
       <!-- 客户列表 -->
       <y-empty v-if="showEmpty"></y-empty>
       <van-list
-        v-else
+        v-if="!isRefresh"
         v-model:loading="state.loading"
         :finished="state.finished"
         :immediate-check="false"
@@ -81,7 +81,6 @@ export default {
     }
 
     const handleSearch = async(content) => {
-      state.value.finished = false
       customerList.value = []
       const curOrg = store.state.curOrg
       if (curOrg) {
@@ -119,10 +118,11 @@ export default {
         showEmpty.value = true
       }
     }
+    const isRefresh = ref(false)
 
     // 刷新数据
     const handleRefresh = async(cb) => {
-      state.value.finished = false
+      isRefresh.value = true
       // 先清空数据
       customerList.value = []
       setQueryParams({
@@ -130,6 +130,7 @@ export default {
         orgIdList: curOrgId.value ? [curOrgId.value] : orgIdList // orgId为空，表示选择全部
       })
       await loadData()
+      isRefresh.value = false
       cb && cb()
     }
 
@@ -155,7 +156,8 @@ export default {
       loadData,
       handdleLoad,
       showEmpty,
-      handleSearch
+      handleSearch,
+      isRefresh
     }
   }
 }
