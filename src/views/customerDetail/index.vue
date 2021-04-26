@@ -37,7 +37,7 @@
 import { getQueryString } from '@/utils/getQueryString'
 import { useStore } from 'vuex'
 import { transNumberToBoolean } from '@/utils'
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 import api from '@/api'
 export default {
   name: '',
@@ -46,58 +46,72 @@ export default {
   props: {
   },
   setup() {
+    const store = useStore()
     const id = getQueryString('id')
     const orgId = getQueryString('orgId')
     const showDetail = ref(true)
+
+    const form = ref({})
+    const orgName = ref('')
+    const customerAddress = ref('')
+    const receiptAddress = ref('')
+    const receiveTime = ref('')
+    const isNeedConfirmation = ref('')
+    const node = ref('')
+    const qty = ref('')
+    const showStock = ref('')
+    const deliveryDays = ref('')
+    const advanceOrderDay = ref('')
+
     const getCustomerDetail = async() => {
       const res = await api.customer.getCustomer({ id }, { orgId })
-
       if (res.success) {
         if (res.data) {
+          const data = res.data
           showDetail.value = true
-          return reactive(res.data)
+          form.value = data
+
+          // 获取orgName
+          orgName.value = store.getters.orgInfo.find(item => item.orgId === orgId)?.orgName || ''
+
+          // 客户地址
+          customerAddress.value = `${data.addressName ? data.addressName : ''} ${data.address ? data.address : ''}`
+
+          // 收货地址
+          receiptAddress.value = `${data.shippingAddressName ? data.shippingAddressName : ''} ${data.shippingAddress ? data.shippingAddress : ''}`
+
+          // 收货时间
+          if (data.startTime && data.endTime) {
+            receiveTime.value = data.startTime?.slice(-8) + '至' + data.endTime?.slice(-8)
+          }
+
+          // 配送天数
+          deliveryDays.value = data.deliveryDays ? `${data.deliveryDays}天` : ''
+
+          // 配送天数
+          advanceOrderDay.value = data.advanceOrderDay ? `${data.advanceOrderDay}天` : ''
+
+          // 是否需要手动收货
+          isNeedConfirmation.value = transNumberToBoolean(data.isNeedConfirmation)
+
+          // 是否为实际节点
+          node.value = transNumberToBoolean(data.node)
+
+          // 是否只卖库存
+          qty.value = transNumberToBoolean(data.qty)
+
+          // 是否显示库存
+          showStock.value = transNumberToBoolean(data.showStock)
+        } else {
+          showDetail.value = false
         }
+      } else {
         showDetail.value = false
-        return reactive({})
       }
-      showDetail.value = false
-      return reactive({})
-    }
-    const form = getCustomerDetail()
-
-    // 获取orgName
-    const store = useStore()
-    const orgName = store.getters.orgInfo.find(item => item.orgId === orgId)?.orgName || ''
-
-    // 客户地址
-    const customerAddress = `${form.addressName ? form.addressName : ''} ${form.address ? form.address : ''}`
-
-    // 收货地址
-    const receiptAddress = `${form.shippingAddressName ? form.shippingAddressName : ''} ${form.shippingAddress ? form.shippingAddress : ''}`
-
-    // 收货时间
-    let receiveTime = ''
-    if (form.startTime && form.endTime) {
-      receiveTime = form.startTime?.slice(-8) + '至' + form.endTime?.slice(-8)
     }
 
-    // 配送天数
-    const deliveryDays = form.deliveryDays ? `${form.deliveryDays}天` : ''
+    getCustomerDetail()
 
-    // 配送天数
-    const advanceOrderDay = form.advanceOrderDay ? `${form.advanceOrderDay}天` : ''
-
-    // 是否需要手动收货
-    const isNeedConfirmation = transNumberToBoolean(form.isNeedConfirmation)
-
-    // 是否为实际节点
-    const node = transNumberToBoolean(form.node)
-
-    // 是否只卖库存
-    const qty = transNumberToBoolean(form.qty)
-
-    // 是否显示库存
-    const showStock = transNumberToBoolean(form.showStock)
     return {
       form,
       orgName,

@@ -67,7 +67,6 @@ export const transferNumStringToBoolean = str => {
  * @description 将数值类型的字符串转换为布尔值类型
  */
 export const transNumberToBoolean = num => {
-  console.log('num', num)
   switch (num) {
     case 1:
       return '是'
