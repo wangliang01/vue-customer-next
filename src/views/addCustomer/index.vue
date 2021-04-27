@@ -28,6 +28,11 @@
       <section class="section">
         <y-field label="收货地址" required placeholder="请选择省/市/区" is-link readonly></y-field>
         <y-field label="详细地址" required placeholder="请输入收货地址"></y-field>
+        <y-field readonly>
+          <template #label>
+
+          </template>
+        </y-field>
       </section>
     </div>
     <y-checkbox v-model="form.switch">同步客户地址</y-checkbox>

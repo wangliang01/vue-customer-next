@@ -54,7 +54,5 @@ export default {
     margin: 16px auto 28px;
     text-align: center;
   }
-  .wrapper{
-  }
 }
 </style>
