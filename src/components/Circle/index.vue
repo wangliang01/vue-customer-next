@@ -27,7 +27,7 @@ export default {
 
 <style lang="scss" scoped>
 .circle {
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   width: 64px;

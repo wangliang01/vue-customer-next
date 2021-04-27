@@ -1,5 +1,5 @@
 <template>
-  <van-switch v-bind="$attrs" v-on="$liseners"></van-switch>
+  <van-switch v-bind="$attrs"></van-switch>
 </template>
 
 <script>

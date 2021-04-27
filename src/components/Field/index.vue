@@ -1,6 +1,6 @@
 <template>
   <div class="field-wrapper">
-    <van-field v-bind="$attrs" class="field" v-on="$liseners">
+    <van-field v-bind="$attrs" class="field">
       <template v-if="$slots.label" #label>
         <slot name="label">
         </slot>

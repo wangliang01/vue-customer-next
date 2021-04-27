@@ -1,7 +1,9 @@
 <template>
   <div class="add-customer">
+    <y-steps></y-steps>
     <section class="section">
       <y-field label="所属组织" required placeholder="请选择所属组织" is-link></y-field>
+      <y-field label="父级一/父级二" model-value="芭芭拉/巴布洛塔罗夫斯基" readonly></y-field>
       <y-field label="客户名称" required placeholder="请输入客户名称"></y-field>
       <y-field label="客户地址" required placeholder="请输入客户名称" is-link></y-field>
       <y-field label="详细地址" required placeholder="请输入具体地址"></y-field>
