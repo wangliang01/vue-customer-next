@@ -26,7 +26,7 @@
       <y-cell label="是否显示库存" :value="showStock"></y-cell>
     </section>
     <!-- 客户LOGO -->
-    <y-image v-if="form.node===1" title="客户LOGO" tips="提示：将作为客户商城的LOGO"></y-image>
+    <y-image v-if="form.node===0" title="客户LOGO" tips="提示：将作为客户商城的LOGO"></y-image>
     <!-- 商城背景图 -->
     <y-image v-if="form.node===1" title="商城背景图" tips="提示：将作为客户商城的背景图，非必传，不传则背景图为默认"></y-image>
   </div>

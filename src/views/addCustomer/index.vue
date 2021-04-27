@@ -30,12 +30,14 @@
         <y-field label="详细地址" required placeholder="请输入收货地址"></y-field>
       </section>
     </div>
+    <y-checkbox v-model="form.switch">同步客户地址</y-checkbox>
+    <y-upload v-model="fileList" :after-read="afterRead" :max-count="1"></y-upload>
     <y-button>确认创建</y-button>
   </div>
 </template>
 
 <script>
-import { reactive, ref } from 'vue'
+import { reactive, ref, watch } from 'vue'
 export default {
   name: 'AddCustomer',
   components: {
@@ -47,9 +49,19 @@ export default {
       switch: true
     })
     const step = ref(2) // 0 : 初始状态, 1: 表示第一步, 2: 表示第二步
+    const fileList = ref([])
+    const afterRead = file => {
+      console.log('file', file)
+    }
+
+    watch(fileList, (newVal, oldVal) => {
+      console.log(newVal, oldVal)
+    })
     return {
       form,
-      step
+      step,
+      fileList,
+      afterRead
     }
   }
 }

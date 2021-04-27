@@ -2,14 +2,15 @@
   <div class="image">
     <h3>{{ title }}</h3>
     <div class="image-wrapper">
-      <van-image :src="imgUrl" fit="cover"></van-image>
+      <van-uploader v-model="fileList" class="uploader" v-bind="$attrs" :deletable="false" disabled :max-count="1">
+      </van-uploader>
       <p class="tips">{{ tips }}</p>
     </div>
   </div>
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 export default {
   name: 'Image',
   components: {
@@ -35,8 +36,9 @@ export default {
       }
       return 'https://yyx-mall.oss-cn-chengdu.aliyuncs.com/customer-icon/pic-default.png'
     })
+    const fileList = ref([{ url: imgUrl }])
     return {
-      imgUrl
+      fileList
     }
   }
 }
@@ -54,6 +56,25 @@ export default {
     font-weight: 500;
     color: #292929;
     line-height: 40px;
+  }
+   .uploader{
+    width: 100%;
+    height: 268px;
+    padding: 0 118px;
+    box-sizing: border-box;
+    ::v-deep(.van-uploader__wrapper){
+      width: 100%;
+      height: 100%;
+    }
+    ::v-deep(.van-uploader__preview-image){
+      width: 100%;
+      height: 100%;
+    }
+    ::v-deep(.van-uploader__preview){
+      margin: 0;
+      width: 100%;
+      height: 100%;
+    }
   }
   .image-wrapper {
     text-align: center;
