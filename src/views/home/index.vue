@@ -68,6 +68,7 @@ export default {
 
     // 组织信息
     const orgInfoList = userInfo?.orgInfoList
+    console.log('orgInfoList', orgInfoList)
     const orgIdList = orgInfoList.map(item => item.orgId)
 
     const setQueryParams = ({ orgIdList, size, current }) => {
@@ -78,7 +79,7 @@ export default {
         queryParams.current = current
       }
       if (orgIdList) {
-        queryParams.orgIdList = orgIdList.join(',')
+        queryParams.orgIdList = Array.isArray(orgIdList) ? orgIdList.join(',') : orgIdList
       }
     }
 
@@ -114,6 +115,7 @@ export default {
     const handleRefresh = async(cb) => {
       // 先清空数据
       customerList.value = []
+      console.log('orgIdList', orgIdList)
       setQueryParams({
         current: 1,
         orgIdList: curOrgId.value ? curOrgId.value : orgIdList.join(',') // orgId为空，表示选择全部
@@ -176,7 +178,8 @@ export default {
 }
 .pull-fresh-container {
   padding-top: 125px;
-  padding-bottom: 60px;
+  padding-bottom: 142px;
+  box-sizing: border-box;
 
 }
 .btn-wrapper{
