@@ -1,12 +1,12 @@
 <template>
   <div class="upload">
-    <h3 class="title">客户LOGO</h3>
+    <h3 class="title">{{ title }}</h3>
     <van-uploader class="uploader" v-bind="$attrs" capture="camera">
       <div class="wrapper">
         <van-image src="https://yyx-mall.oss-cn-chengdu.aliyuncs.com/customer-icon/upload.png" fit="contain"></van-image>
       </div>
     </van-uploader>
-    <y-tips class="tips">提示：将作为客户商城的LOGO</y-tips>
+    <y-tips class="tips">{{ tips }}</y-tips>
   </div>
 </template>
 
@@ -16,6 +16,14 @@ export default {
   components: {
   },
   props: {
+    title: {
+      type: String,
+      default: ''
+    },
+    tips: {
+      type: String,
+      default: ''
+    }
   },
   setup() {
     return {

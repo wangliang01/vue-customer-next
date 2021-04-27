@@ -1,5 +1,5 @@
 <template>
-  <div class="tips">
+  <div ref="tips" class="tips" :style="`font-size: ${size}px`">
     <slot></slot>
   </div>
 </template>
@@ -10,11 +10,13 @@ export default {
   components: {
   },
   props: {
+    size: {
+      type: [String, Number],
+      default: 12
+    }
   },
   setup() {
-    return {
 
-    }
   }
 }
 </script>
@@ -22,7 +24,7 @@ export default {
 <style lang="scss" scoped>
 .tips {
   padding: 10px 30px;
-  font-size: 26px;
+  font-size: 24px;
   font-family: PingFang-SC-Medium, PingFang-SC;
   font-weight: 500;
   color: #999999;

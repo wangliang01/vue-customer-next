@@ -28,15 +28,45 @@
       <section class="section">
         <y-field label="收货地址" required placeholder="请选择省/市/区" is-link readonly></y-field>
         <y-field label="详细地址" required placeholder="请输入收货地址"></y-field>
-        <y-field readonly>
+        <y-field readonly class="block">
           <template #label>
-
+            <y-checkbox v-model="form.switch">同步客户地址</y-checkbox>
           </template>
         </y-field>
       </section>
+      <section class="section">
+        <y-field label="开票公司" required placeholder="请选择开票公司" is-link readonly></y-field>
+        <y-field label="报价单" required placeholder="请选择报价单" is-link readonly></y-field>
+        <y-field label="绑定仓库" required placeholder="请选择仓库" is-link readonly></y-field>
+        <y-field label="收货时间" required placeholder="请选择收货时间" is-link readonly></y-field>
+        <y-field readonly class="block">
+          <template #label>
+            <y-checkbox v-model="form.switch">避开高峰时间</y-checkbox>
+          </template>
+        </y-field>
+      </section>
+      <section class="section">
+        <y-field label="配送天数" placeholder="请输入配送天数"></y-field>
+        <y-field label="提前配送天数" placeholder="请输入提前配送天数"></y-field>
+        <y-field label="外部门店ID" placeholder="请输入外部门店ID"></y-field>
+        <y-field label="是否只卖库存" required>
+          <template #right-icon>
+            <y-switch v-model="form.switch"></y-switch>
+          </template>
+        </y-field>
+        <y-field readonly class="block">
+          <template #label>
+            <y-checkbox v-model="form.switch">显示库存</y-checkbox>
+          </template>
+        </y-field>
+      </section>
+      <section class="section">
+        <y-upload v-model="fileList" :after-read="afterRead" :max-count="1" title="客户LOGO" tips="提示：将作为客户商城的LOGO"></y-upload>
+      </section>
+      <section class="section">
+        <y-upload v-model="fileList" :after-read="afterRead" :max-count="1" title="商城背景图" tips="提示：将作为客户商城的背景图，非必传，不传则背景图为默认"></y-upload>
+      </section>
     </div>
-    <y-checkbox v-model="form.switch">同步客户地址</y-checkbox>
-    <y-upload v-model="fileList" :after-read="afterRead" :max-count="1"></y-upload>
     <y-button>确认创建</y-button>
   </div>
 </template>
@@ -74,9 +104,16 @@ export default {
 
 <style lang="scss" scoped>
 .add-customer{
+  padding-bottom: 144px;
   overflow: hidden;
   .section{
     margin-top: 24px;
+  }
+  .block {
+    ::v-deep(.van-field__label) {
+      width: 100%;
+      box-sizing: border-box;
+    }
   }
 }
 </style>

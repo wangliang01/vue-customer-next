@@ -37,6 +37,7 @@ export default {
   padding: 22px 24px;
   box-sizing: border-box;
   background-color: #fff;
+  border-top: 2px solid #D9D9D9;
 }
 .btn {
   display: block;
